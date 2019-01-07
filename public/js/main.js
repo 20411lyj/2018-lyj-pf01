@@ -21,7 +21,7 @@ bar2.click(navToggle);
 function navInit() {
 	navWid = nav.width();
 	if($(window).width() > 768) navHide();
-	else navToggle();
+	
 }
 function navHide() {
 	nav.css({"left":-navWid+"px"});
@@ -30,3 +30,76 @@ function navToggle() {
 	if(nav.position().left == 0) nav.stop().animate({"left": -navWid+"px"}, 500);
 	else nav.stop().animate({"left": 0}, 500);
 }
+
+/***** Masonry *****/
+var masonryOption = {
+	itemSelector: '.grid-item',
+		columnWidth: '.grid-sizer',
+		percentPosition: true
+};
+$('.grid').imagesLoaded( function() {
+  $('.grid').masonry(masonryOption);
+});
+/***** 다음 지도 *****/
+$(window).resize(function(){
+	var container = document.getElementById('map');
+	var options = {
+		center: new daum.maps.LatLng(37.572070, 126.987287), //지도의 중심좌표.
+		level: 3 //지도의 레벨(확대, 축소 정도)
+	};
+	var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+	map.setDraggable(false);
+	map.setZoomable(false);
+	
+	var clusterer = new daum.maps.MarkerClusterer({
+		map: map,
+		gridSize: 35,
+		averageCenter: true,
+		minLevel: 6,
+		disableClickZoom: true,
+		styles: [{
+				width : '53px', height : '52px',
+				background: 'url(cluster.png) no-repeat',
+				color: '#fff',
+				textAlign: 'center',
+				lineHeight: '54px'
+		}]
+	});
+	var marker = new daum.maps.Marker({
+		position: new daum.maps.LatLng(37.572070, 126.987287)
+	});
+	clusterer.addMarker(marker);
+}).trigger("resize");
+
+/***** bt_top *****/
+$("#bt_top").click(function(){
+	$("html, body").stop().animate({"scrollTop":0}, 2000);
+});
+
+/*
+var options = {
+	speed: 3000,
+	gap: 3000,
+	type: "fade",
+	pager: true
+};
+var mainBanner = new Slide($(".banner"), $(".banner_wrap"), $(".slide"), options);
+var options = [{
+	delay: 3000,
+	speed: 1000
+},{
+	delay: 1000,
+	speed: 200
+},{
+	delay: 2000,
+	speed: 100
+}];
+var mainBanner = new FadeSlide($(".banner_wrap").eq(0).find(".slide"), options[0]);
+var mainBanner2 = new FadeSlide($(".banner_wrap").eq(1).find(".slide"), options[1]);
+var mainBanner3 = new FadeSlide($(".banner_wrap").eq(2).find(".slide"), options[2]);
+//접근법
+$(".banner_wrap").eq(0).find(".slide")
+$(".slide", $(".banner_wrap").eq(0))
+*/
+
+//new FadeSlide($(".slide"), {delay:3000, speed:1000});
