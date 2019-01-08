@@ -15,8 +15,8 @@ function ani() {
 	});
 } */
 
-var FadeSlide = (function(){
-	function FadeSlide(slides, options) {
+var SlideFade = (function(){
+	function SlideFade(slides, options) {
         var obj = this;
         this.slides = options.slides;
         this.delay  = options.delay;
@@ -27,14 +27,14 @@ var FadeSlide = (function(){
         this.init(obj);
         console.log(this);
 	}
-	FadeSlide.prototype.init = function() {
+	SlideFade.prototype.init = function() {
         console.log(this);
 		this.slides.each(function(){
             con
             if(obj.depth < $(this).css("z-index")) obj.depth = $(this).css("z-index");
         });
 	}
-	return FadeSlide;
+	return SlideFade;
 }());
 
 var options = {
@@ -42,5 +42,5 @@ var options = {
     delay : 3000,
     speed : 1000
 }
-var mainBanner = new FadeSlide($(".slide"), options);
+var mainBanner = new SlideFade($(".slide"), options);
 

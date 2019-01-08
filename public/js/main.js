@@ -94,12 +94,37 @@ var options = [{
 	delay: 2000,
 	speed: 100
 }];
-var mainBanner = new FadeSlide($(".banner_wrap").eq(0).find(".slide"), options[0]);
-var mainBanner2 = new FadeSlide($(".banner_wrap").eq(1).find(".slide"), options[1]);
-var mainBanner3 = new FadeSlide($(".banner_wrap").eq(2).find(".slide"), options[2]);
+var mainBanner = new SlideFade($(".banner_wrap").eq(0).find(".slide"), options[0]);
+var mainBanner2 = new SlideFade($(".banner_wrap").eq(1).find(".slide"), options[1]);
+var mainBanner3 = new SlideFade($(".banner_wrap").eq(2).find(".slide"), options[2]);
 //접근법
 $(".banner_wrap").eq(0).find(".slide")
 $(".slide", $(".banner_wrap").eq(0))
 */
 
-//new FadeSlide($(".slide"), {delay:3000, speed:1000});
+//new SlideFade($(".slide"), {delay:3000, speed:1000});
+var options = {
+	delay: 3000,
+	speed: 300,
+	dir: -1,
+	dirBtnUse: true,
+	dirBtn:[$("#bt_prev"), $("#bt_next")]
+};
+var horiBanner = new SlideHori($("#banner1"), $("#banner1").find(".slide"), options);
+
+/*
+$(".banner_wrap").find(".slide")
+$(".banner_wrap").children(".slide")
+$(".slide", $(".banner_wrap"))
+*/
+emailjs.init("user_961QWe8gFHGaQaV0nkX3G");
+$('#contact-form').on('submit', function(e) {
+		e.preventDefault();
+		$("input[name='contact_number']").val(Math.random() * 100000 | 0);
+		emailjs.sendForm('lpdt0079_gmail_com', ' template_onl6oSzt', this).then(function(res){
+			alert("메시지 전송에 성공했습니다 빠른 시간안에 답변 드리겠습니다.")
+		}, function(err){
+			alert("메시지 전송이 실패했습니다. 다시 시도해주세요")
+		});
+		$(this)[0].reset();
+});
