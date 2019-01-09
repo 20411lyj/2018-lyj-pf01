@@ -121,10 +121,25 @@ emailjs.init("user_961QWe8gFHGaQaV0nkX3G");
 $('#contact-form').on('submit', function(e) {
 		e.preventDefault();
 		$("input[name='contact_number']").val(Math.random() * 100000 | 0);
-		emailjs.sendForm('lpdt0079_gmail_com', ' template_onl6oSzt', this).then(function(res){
+		emailjs.sendForm('lpdt0079_gmail_com', 'template_onl6oSzt', this).then(function(res){
 			alert("메시지 전송에 성공했습니다 빠른 시간안에 답변 드리겠습니다.")
 		}, function(err){
 			alert("메시지 전송이 실패했습니다. 다시 시도해주세요")
 		});
 		$(this)[0].reset();
 });
+
+/****** 네비게이션 구현******/
+
+$(".nav").click(goLoc);
+$(".logo").click(goLoc);
+function goLoc() {
+	var nav = $(this);
+	var i = $(this).data("page");
+	var pos = $(".page").eq(i).offset().top;
+	$("html, body").stop().animate({"scrollTop":pos}, 1000, function(){
+		$(".nav").css({"color":"#333"});
+		if(i > 0) nav.css({"color": "#b30"});
+	});
+}
+//$("html, body").stop().animate({"scrollTop" :2000}, 1000);
